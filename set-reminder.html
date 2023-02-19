@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Set Reminder</title>
+    <style>
+
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #F6F6F6;
+  margin: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-top: 0;
+  text-align: center;
+  color: #333333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  font-size: 16px;
+  color: #333333;
+}
+
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  font-size: 16px;
+  color: #333333;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.checkboxes label {
+  font-weight: normal;
+}
+
+.checkboxes input[type="checkbox"] {
+  margin-right: 5px;
+  transform: scale(1.5);
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #333333;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+  background-color: #555555;
+}
+
+.success-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #C8E6C9;
+  border-radius: 5px;
+  color: #2E7D32;
+}
+
+.error-message {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #FFCDD2;
+  border-radius: 5px;
+  color: #C62828;
+}
+
+
+    </style>
+
+  </head>
+  <body>
+    <header class="header">
+      <h1>Reminder Application</h1>
+      <button id="back-button">Back</button>
+    </header>
+    <div class="container">
+      <form id="reminderForm">
+        <h2>Set a Reminder</h2>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" placeholder="Enter the subject" required>
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" placeholder="Enter a description" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter an email address" required>
+        <label for="contact-number">Contact Number:</label>
+        <input type="tel" id="contact-number" name="contact-number" placeholder="Enter a contact number" required>
+        <label for="sms-number">SMS Number:</label>
+        <input type="tel" id="sms-number" name="sms-number" placeholder="Enter an SMS number" required>
+        <label>Remind me:</label>
+        <div>
+          <input type="checkbox" id="7days" name="remind" value="7">
+          <label for="7days">7 days before</label>
+        </div>
+        <div>
+          <input type="checkbox" id="5days" name="remind" value="5">
+          <label for="5days">5 days before</label>
+        </div>
+        <div>
+          <input type="checkbox" id="3days" name="remind" value="3">
+          <label for="3days">3 days before</label>
+        </div>
+        <div>
+          <input type="checkbox" id="2days" name="remind" value="2">
+          <label for="2days">2 days before</label>
+        </div>
+        <input type="submit" value="Save Reminder">
+      </form>
+    </div>
+    <script>
+
+const Gobackbtn = document.getElementById("back-button"); // get the button element
+
+Gobackbtn.addEventListener("click", function() {
+  window.location.href = "home.html"; // redirect to home.html page
+});
+
+
+      // Open the database
+var db = openDatabase('reminders', '1.0', 'Reminder Application Database', 2 * 1024 * 1024);
+
+// Create the reminders table
+db.transaction(function(tx) {
+  tx.executeSql('CREATE TABLE IF NOT EXISTS reminders (id INTEGER PRIMARY KEY, date TEXT, subject TEXT ,description TEXT, email TEXT, contact_number TEXT, sms_number TEXT, remind_7days INTEGER, remind_5days INTEGER, remind_3days INTEGER, remind_2days INTEGER)');
+});
+
+
+// Get the reminder form element
+var reminderForm = document.getElementById('reminderForm');
+
+// Add an event listener for form submission
+if (reminderForm) {
+  reminderForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get the form data
+    var formData = new FormData(reminderForm);
+
+    // Get the checkbox values
+    var remind7days = formData.get('remind').includes('7');
+    var remind5days = formData.get('remind').includes('5');
+    var remind3days = formData.get('remind').includes('3');
+    var remind2days = formData.get('remind').includes('2');
+
+    // Insert the reminder into the database
+    db.transaction(function(tx) {
+      tx.executeSql('INSERT INTO reminders (date, subject, description, email, contact_number, sms_number, remind_7days, remind_5days, remind_3days, remind_2days) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+        formData.get('date'),
+        formData.get('subject'),
+        formData.get('description'),
+        formData.get('email'),
+        formData.get('contact-number'),
+        formData.get('sms-number'),
+        remind7days,
+        remind5days,
+        remind3days,
+        remind2days
+      ], function(tx, result) {
+        console.log('Reminder saved with ID ' + result.insertId);
+
+        // Reset the form
+        reminderForm.reset();
+
+        // Show a success message
+        var successMessage = document.createElement('p');
+        successMessage.textContent = 'Reminder saved successfully.';
+        successMessage.classList.add('success-message');
+        reminderForm.appendChild(successMessage);
+        setTimeout(function() {
+          successMessage.remove();
+        }, 3000);
+      }, function(tx, error) {
+        console.error('Error saving reminder: ' + error.message);
+
+        // Show an error message
+        var errorMessage = document.createElement('p');
+        errorMessage.textContent = 'Error saving reminder. Please try again later.';
+        errorMessage.classList.add('error-message');
+        reminderForm.appendChild(errorMessage);
+        setTimeout(function() {
+          errorMessage.remove();
+        }, 3000);
+
+
+      });
+    });
+  });
+}
+    </script>
+  </body>
+</html>

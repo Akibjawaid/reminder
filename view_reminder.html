@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Web Page</title>
+	<style>
+		 th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+		table{
+			align-items: center;
+			align-self: center;
+		}
+		/* Style for the header */
+		header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 36px;
+      }
+
+      /* Style for the main content */
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-size: 24px;
+        line-height: 1.5;
+      }
+
+      /* Style for the button */
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      /* Style for the button when hovered over */
+      button:hover {
+        background-color: #3e8e41;
+      }
+	</style>
+	<script src="view_rmndr_script.js"> </script>
+</head>
+<body>
+	<header>
+	<h1>My Reminders table</h1>
+</header>
+<main>
+	<table id="mydata"></table>
+</main>
+	<button onclick = "goBack()">Back</button>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Reminder</title>
+    <style>
+      /* Style for the header */
+      header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 36px;
+      }
+
+      /* Style for the main content */
+      main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-size: 24px;
+        line-height: 1.5;
+      }
+
+      /* Style for the button */
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      /* Style for the button when hovered over */
+      button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+    <script src="dlt_reminder.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Delete Reminder</h1>
+    </header>
+    <main>
+        <h1>My Reminders table</h1>
+        <table id="mydata">
+          <tr>
+            <th></th>
+            <th>id</th>
+            <th>date</th>
+            <th>subject</th>
+            <th>description</th>
+            <th>email</th>
+            <th>contact_number</th>
+            <th>sms_number</th>
+            <th></th>
+          </tr>
+        </table>
+    </main>
+    <button onclick="deleteSelected()">Delete Selected</button>
+    <button onclick="goBack()">Back</button>
+  </body>
+</html>

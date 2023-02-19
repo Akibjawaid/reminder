@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to the Reminder Application</title>
+    <style>
+        body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+h1 {
+  color: #555;
+  font-size: 24px;
+  margin: 0;
+}
+
+#date {
+  color: #777;
+  font-size: 16px;
+  margin: 0;
+}
+
+#logout-btn {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+#logout-btn:hover {
+  background-color: #3e8e41;
+}
+
+.tiles-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px auto;
+  max-width: 1200px;
+}
+
+.tile {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  margin: 20px;
+  padding: 30px;
+  text-align: center;
+  width: 300px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.tile:hover {
+  box-shadow: 0 0 20px rgba(46, 204, 113, 0.8);
+}
+
+.tile:hover h2 {
+  color: #2ecc71;
+}
+
+.tile h2 {
+  color: #555;
+  font-size: 20px;
+  margin: 0;
+  transition: color 0.3s ease-in-out;
+}
+</style>
+    <script src="script1_home.js"> </script>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Welcome to the Reminder Application</h1>
+      <p id="date"></p>
+      <button id="logout-btn">Logout</button>
+    </div>
+
+    <div class="tiles-container">
+      <div class="tile" onclick="location.href='set-reminder.html';">
+        <h2>Set Reminder</h2>
+      </div>
+      <div class="tile" onclick="location.href='modify_reminder.html';">
+        <h2>Modify Reminder</h2>
+      </div>
+      <div class="tile" onclick="location.href='disable-reminder.html';">
+        <h2>Disable Reminder</h2>
+      </div>
+      <div class="tile" onclick="location.href='delete_reminder.html';">
+        <h2>Delete Reminder</h2>
+      </div>
+      <div class="tile" onclick="location.href='enable-reminder.html';">
+        <h2>Enable Reminder</h2>
+      </div>
+      <div class="tile" onclick="location.href='view_reminder.html';">
+        <h2>View your Reminders</h2>
+      </div>
+    </div>
+
+
+  </body>
+</html>
